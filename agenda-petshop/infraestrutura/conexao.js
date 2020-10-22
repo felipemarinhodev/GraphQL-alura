@@ -1,11 +1,15 @@
-const mysql = require('mysql')
+require('dotenv/config')
 
-const conexao = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: 'admin',
-  database: 'agenda-petshop'
-})
-
-module.exports = conexao
+module.exports = {
+  dialect: 'postgres',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,  
+  port: process.env.DB_PORT,
+  define: {
+    timestamps: true,
+    underscored: true,
+    underscoredAll: true,
+  },
+};

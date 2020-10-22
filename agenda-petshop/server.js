@@ -1,17 +1,19 @@
 const customExpress = require('./config/custom-express')
 const conexao = require('./infraestrutura/conexao')
 const Tabelas = require('./infraestrutura/database/tabelas')
-
+const { Client } = require('pg')
 const app = customExpress()
 
-conexao.connect(erro => {
+const client = new Client({ ...conexao })
+
+client.connect(erro => {
   if (erro) {
     console.log(erro)
   }
 
   console.log('conectou no banco')
 
-  Tabelas.init(conexao)
+  Tabelas.init(client)
 })
 
 app.listen(4000, () => {
